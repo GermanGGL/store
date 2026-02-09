@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cozy Cushions Store</title>
+    <title>Tienda de Cojines Acogedores</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,16 +11,16 @@
         <nav class="navbar">
             <div class="nav-container">
                 <div class="logo">
-                    <h1>Cozy Cushions</h1>
+                    <h1>Cojines Acogedores</h1>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#products">Products</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#products">Productos</a></li>
+                    <li><a href="#about">Acerca de</a></li>
+                    <li><a href="#contact">Contacto</a></li>
                     <li class="cart-item">
-                        <a href="#cart">🛒 Cart (<span id="cart-count">0</span>)</a>
-                        <button id="whatsapp-btn" class="whatsapp-btn" title="Contact via WhatsApp">
+                        <a href="#cart">🛒 Carrito (<span id="cart-count">0</span>)</a>
+                        <button id="whatsapp-btn" class="whatsapp-btn" title="Contactar por WhatsApp">
                             💬
                         </button>
                     </li>
@@ -37,20 +37,20 @@
     <main>
         <section id="home" class="hero">
             <div class="hero-content">
-                <h2>Transform Your Space with Cozy Cushions</h2>
-                <p>Discover our premium collection of comfortable and stylish cushions</p>
-                <a href="#products" class="cta-button">Shop Now</a>
+                <h2>Transforma Tu Espacio con Cojines Acogedores</h2>
+                <p>Descubre nuestra colección premium de cojines cómodos y elegantes</p>
+                <a href="#products" class="cta-button">Comprar Ahora</a>
             </div>
         </section>
 
         <section id="products" class="products">
             <div class="container">
-                <h2>Our Collection</h2>
+                <h2>Nuestra Colección</h2>
                 <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="decorative">Decorative</button>
-                    <button class="filter-btn" data-filter="outdoor">Outdoor</button>
-                    <button class="filter-btn" data-filter="throw">Throw Pillows</button>
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="decorative">Decorativos</button>
+                    <button class="filter-btn" data-filter="outdoor">Exterior</button>
+                    <button class="filter-btn" data-filter="throw">Cojines Decorativos</button>
                 </div>
                 <div id="products-grid" class="products-grid">
                     <!-- Products will be inserted here by JavaScript -->
@@ -58,22 +58,40 @@
             </div>
         </section>
 
+        <section id="cart" class="cart-section">
+            <div class="container">
+                <h2>Mi Carrito</h2>
+                <div id="cart-items" class="cart-items">
+                    <!-- Cart items will be inserted here by JavaScript -->
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <h3>Total: $<span id="cart-total">0.00</span></h3>
+                    </div>
+                    <div class="cart-actions">
+                        <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
+                        <button id="checkout-whatsapp" class="checkout-btn">Comprar por WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="about" class="about">
             <div class="container">
-                <h2>About Cozy Cushions</h2>
-                <p>At Cozy Cushions, we believe that the right cushions can transform any space into a warm, inviting sanctuary. Since 2020, we've been carefully curating a collection of premium cushions that combine comfort, style, and durability.</p>
+                <h2>Acerca de Cojines Acogedores</h2>
+                <p>En Cojines Acogedores, creemos que los cojines adecuados pueden transformar cualquier espacio en un santuario cálido y acogedor. Desde 2020, hemos estado curando cuidadosamente una colección de cojines premium que combinan comodidad, estilo y durabilidad.</p>
                 <div class="features">
                     <div class="feature">
-                        <h3>Premium Materials</h3>
-                        <p>Only the finest fabrics and fillings</p>
+                        <h3>Materiales Premium</h3>
+                        <p>Solo las mejores telas y rellenos</p>
                     </div>
                     <div class="feature">
-                        <h3>Handcrafted Quality</h3>
-                        <p>Each cushion made with attention to detail</p>
+                        <h3>Calidad Artesanal</h3>
+                        <p>Cada cojín hecho con atención al detalle</p>
                     </div>
                     <div class="feature">
-                        <h3>Satisfaction Guaranteed</h3>
-                        <p>30-day return policy on all items</p>
+                        <h3>Satisfacción Garantizada</h3>
+                        <p>Política de devolución de 30 días en todos los artículos</p>
                     </div>
                 </div>
             </div>
@@ -81,28 +99,30 @@
 
         <section id="contact" class="contact">
             <div class="container">
-                <h2>Get in Touch</h2>
+                <h2>Ponte en Contacto</h2>
                 <div class="contact-info">
                     <div class="contact-item">
-                        <h3>📍 Visit Us</h3>
-                        <p>123 Comfort Street<br>Cozy City, CC 12345</p>
+                        <h3>📍 Visítanos</h3>
+                        <p>123 Calle Confort<br>Puebla, Publa, CC 12345</p>
                     </div>
                     <div class="contact-item">
-                        <h3>📞 Call Us</h3>
+                        <h3>📞 Llámanos</h3>
                         <p>(555) 123-4567</p>
                     </div>
                     <div class="contact-item">
-                        <h3>📧 Email Us</h3>
-                        <p>hello@cozycushions.com</p>
+                        <h3>📧 Correo Electrónico</h3>
+                        <p>hello@email.com</p>
                     </div>
                 </div>
             </div>
         </section>
+
+        
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Cozy Cushions. All rights reserved.</p>
+            <p>&copy; 2024 Cojines Acogedores. Todos los derechos reservados.</p>
         </div>
     </footer>
 

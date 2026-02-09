@@ -5,28 +5,28 @@ const WHATSAPP_NUMBER = '+5212221311486'; // Replace with your actual WhatsApp n
 const products = [
     {
         id: 1,
-        name: "Velvet Luxury Cushion",
+        name: "Cojín de Lujo Terciopelo",
         price: 45.99,
-        description: "Soft velvet fabric with elegant gold accents",
+        description: "Tela suave de terciopelo con elegantes acentos dorados",
         category: "decorative",
-        image: "https://picsum.photos/seed/velvet-cushion/300/250.jpg"
+        image: "./images/cojin1.jpeg"
     },
     {
         id: 2,
-        name: "Outdoor Weather-Resistant",
+        name: "Exterior Resistente al Clima",
         price: 32.99,
-        description: "Durable cushion perfect for patios and gardens",
+        description: "Cojín duradero perfecto para patios y jardines",
         category: "outdoor",
-        image: "https://picsum.photos/seed/outdoor-cushion/300/250.jpg"
+        image: "./images/cojin2.jpeg"
     },
     {
         id: 3,
-        name: "Cozy Bohemian Throw",
+        name: "Cojín Bohemio Acogedor",
         price: 28.99,
-        description: "Boho-style cushion with tassels and patterns",
+        description: "Cojín estilo bohemio con borlas y patrones",
         category: "throw",
-        image: "https://picsum.photos/seed/boho-cushion/300/250.jpg"
-    },
+        image: "./images/cojin3.jpeg"
+    }/* ,
     {
         id: 4,
         name: "Modern Geometric Print",
@@ -74,7 +74,7 @@ const products = [
         description: "Minimalist Scandinavian design",
         category: "throw",
         image: "https://picsum.photos/seed/nordic-cushion/300/250.jpg"
-    }
+    } */
 ];
 
 // Shopping cart
@@ -83,6 +83,10 @@ let cart = [];
 // DOM Elements
 const productsGrid = document.getElementById('products-grid');
 const cartCount = document.getElementById('cart-count');
+const cartItems = document.getElementById('cart-items');
+const cartTotal = document.getElementById('cart-total');
+const clearCartBtn = document.getElementById('clear-cart');
+const checkoutWhatsappBtn = document.getElementById('checkout-whatsapp');
 const filterButtons = document.querySelectorAll('.filter-btn');
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -93,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts(products);
     setupEventListeners();
     updateCartCount();
+    renderCart();
 });
 
 // Render products
@@ -109,7 +114,7 @@ function renderProducts(productsToRender) {
                 <div class="product-price">$${product.price.toFixed(2)}</div>
                 <p class="product-description">${product.description}</p>
                 <button class="add-to-cart" onclick="addToCart(${product.id})">
-                    Add to Cart
+                    Agregar al Carrito
                 </button>
             </div>
         `;
@@ -140,6 +145,23 @@ function setupEventListeners() {
     // WhatsApp button click handler
     if (whatsappBtn) {
         whatsappBtn.addEventListener('click', () => {
+            openWhatsApp();
+        });
+    }
+
+    // Clear cart button
+    if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', () => {
+            cart = [];
+            updateCartCount();
+            renderCart();
+            showNotification('Carrito vaciado');
+        });
+    }
+
+    // Checkout WhatsApp button
+    if (checkoutWhatsappBtn) {
+        checkoutWhatsappBtn.addEventListener('click', () => {
             openWhatsApp();
         });
     }
@@ -193,7 +215,8 @@ function addToCart(productId) {
         }
         
         updateCartCount();
-        showNotification(`${product.name} added to cart!`);
+        renderCart();
+        showNotification(`${product.name} agregado al carrito!`);
     }
 }
 
@@ -203,15 +226,78 @@ function updateCartCount() {
     cartCount.textContent = totalItems;
 }
 
+// Render cart items
+function renderCart() {
+    cartItems.innerHTML = '';
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p class="empty-cart">Tu carrito está vacío</p>';
+        cartTotal.textContent = '0.00';
+        return;
+    }
+    
+    cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+            <div class="cart-item-info">
+                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <h4>${item.name}</h4>
+                    <p class="cart-item-description">${item.description}</p>
+                    <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                </div>
+            </div>
+            <div class="cart-item-quantity">
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                <span class="quantity">${item.quantity}</span>
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                <button class="remove-item" onclick="removeFromCart(${item.id})">🗑️</button>
+            </div>
+        `;
+        cartItems.appendChild(cartItem);
+    });
+    
+    updateCartTotal();
+}
+
+// Update item quantity
+function updateQuantity(productId, change) {
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            removeFromCart(productId);
+        } else {
+            updateCartCount();
+            renderCart();
+        }
+    }
+}
+
+// Remove item from cart
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartCount();
+    renderCart();
+    showNotification('Producto eliminado del carrito');
+}
+
+// Update cart total
+function updateCartTotal() {
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    cartTotal.textContent = total.toFixed(2);
+}
+
 // Open WhatsApp with pre-filled message
 function openWhatsApp() {
-    let message = "Hello! I'm interested in your cushions. I have a few questions about your products.";
+    let message = "¡Hola! Estoy interesado en tus cojines. Tengo algunas preguntas sobre tus productos.";
     
     // If cart has items, include cart details
     if (cart.length > 0) {
         const cartItems = cart.map(item => `${item.name} (x${item.quantity})`).join(', ');
         const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        message = `Hello! I'd like to order the following items:\n${cartItems}\n\nTotal: $${totalPrice.toFixed(2)}\n\nCould you help me with the checkout process?`;
+        message = `¡Hola! Me gustaría ordenar los siguientes artículos:\n${cartItems}\n\nTotal: $${totalPrice.toFixed(2)}\n\n¿Podrías ayudarme con el proceso de compra?`;
     }
     
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^\d]/g, '')}?text=${encodeURIComponent(message)}`;
