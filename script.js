@@ -1,5 +1,5 @@
 // WhatsApp configuration - Change this number to your WhatsApp number
-const WHATSAPP_NUMBER = '+1234567890'; // Replace with your actual WhatsApp number
+const WHATSAPP_NUMBER = '+5212221311486'; // Replace with your actual WhatsApp number
 
 // Sample product data
 const products = [
