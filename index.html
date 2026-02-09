@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Cushions Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Cozy Cushions</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="cart-item">
+                        <a href="#cart">🛒 Cart (<span id="cart-count">0</span>)</a>
+                        <button id="whatsapp-btn" class="whatsapp-btn" title="Contact via WhatsApp">
+                            💬
+                        </button>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>Transform Your Space with Cozy Cushions</h2>
+                <p>Discover our premium collection of comfortable and stylish cushions</p>
+                <a href="#products" class="cta-button">Shop Now</a>
+            </div>
+        </section>
+
+        <section id="products" class="products">
+            <div class="container">
+                <h2>Our Collection</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="decorative">Decorative</button>
+                    <button class="filter-btn" data-filter="outdoor">Outdoor</button>
+                    <button class="filter-btn" data-filter="throw">Throw Pillows</button>
+                </div>
+                <div id="products-grid" class="products-grid">
+                    <!-- Products will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Cozy Cushions</h2>
+                <p>At Cozy Cushions, we believe that the right cushions can transform any space into a warm, inviting sanctuary. Since 2020, we've been carefully curating a collection of premium cushions that combine comfort, style, and durability.</p>
+                <div class="features">
+                    <div class="feature">
+                        <h3>Premium Materials</h3>
+                        <p>Only the finest fabrics and fillings</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Handcrafted Quality</h3>
+                        <p>Each cushion made with attention to detail</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Satisfaction Guaranteed</h3>
+                        <p>30-day return policy on all items</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Get in Touch</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>📍 Visit Us</h3>
+                        <p>123 Comfort Street<br>Cozy City, CC 12345</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📞 Call Us</h3>
+                        <p>(555) 123-4567</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📧 Email Us</h3>
+                        <p>hello@cozycushions.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Cozy Cushions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
