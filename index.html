@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icon_creacionesL_A.ico" />">
     <title>Creaciones L&A</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="nav-container">
                 <div class="logo">
-                    <img src="images/logo.jpeg" alt="Creaciones L&A" class="logo-img">                    
+                    <img src="images/icon.jpeg" alt="Creaciones L&A" class="logo-img">                    
                 </div>
                 <div class="logo">
-                    <h1>Creaciones L&A</h1>
+                    <h1 class="cookie-regular">Creaciones L&A</h1>
                 </div>
                 <ul class="nav-menu">
                     <li><a href="#home">Inicio</a></li>
                     <li><a href="#products">Productos</a></li>
                     <li><a href="#about">Acerca de</a></li>
                     <li><a href="#contact">Contacto</a></li>
-                    <li class="cart-item">
-                        <a href="#cart">🛒 Carrito (<span id="cart-count">0</span>)</a>
-                        <button id="whatsapp-btn" class="whatsapp-btn" title="Contactar por WhatsApp">
-                            <img src="images/whatsapp.png" alt="WhatsApp" width="20" height="20">
-                        </button>
+                    <li>
+                        <a href="#cart"><img src="images/carro-de-la-compra.png" alt="Carrito" width="24" height="24"> <span id="cart-text">Carrito</span> (<span id="cart-count">0</span>)</a>
                     </li>
                 </ul>
                 <div class="hamburger">
@@ -124,6 +125,13 @@
         
     </main>
 
+    <div class="floating-contact">
+        <span>Contáctenos para más información</span>
+        <div class="floating-icon">
+            <img src="images/whatsapp.png" alt="WhatsApp">
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2026 Creaciones L&A. Todos los derechos reservados.</p>
@@ -131,8 +139,10 @@
     </footer>
 
     <div class="floating-contact">
-        <img src="images/whatsapp.png" alt="WhatsApp" width="24" height="24">
         <span>Contáctenos para más información</span>
+        <div class="floating-icon">
+            <img src="images/whatsapp.png" alt="WhatsApp">
+        </div>
     </div>
 
     <script src="products.js"></script>

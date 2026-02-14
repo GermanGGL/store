@@ -6,8 +6,10 @@ let products = productsData;
 // DOM Elements
 const productsGrid = document.getElementById('products-grid');
 const cartCount = document.getElementById('cart-count');
+const cartText = document.getElementById('cart-text');
 const cartItems = document.getElementById('cart-items');
 const cartTotal = document.getElementById('cart-total');
+const cartSection = document.getElementById('cart');
 const filterButtons = document.querySelectorAll('.filter-btn');
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -24,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     updateCartCount();
     renderCart();
+    cartText.style.display = 'none';
 });
 
 // Render products
@@ -158,6 +161,12 @@ function addToCart(productId) {
 function updateCartCount() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.textContent = totalItems;
+    
+    if (totalItems > 0) {
+        cartText.style.display = 'inline';
+    } else {
+        cartText.style.display = 'none';
+    }
 }
 
 // Render cart items
@@ -167,8 +176,11 @@ function renderCart() {
     if (cart.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart">Tu carrito está vacío</p>';
         cartTotal.textContent = '0.00';
+        cartSection.classList.add('collapsed');
         return;
     }
+    
+    cartSection.classList.remove('collapsed');
     
     cart.forEach(item => {
         const cartItem = document.createElement('div');
@@ -246,7 +258,7 @@ function showNotification(message) {
         position: fixed;
         top: 100px;
         right: 20px;
-        background: #8B4513;
+        background: #8721a8;
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 5px;
