@@ -559,6 +559,28 @@ footer {
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .floating-contact {
+        width: auto;
+        left: 15px;
+        right: auto;
+        transform: none;
+        bottom: 15px;
+        padding: 10px 16px;
+    }
+
+    .floating-contact span {
+        font-size: 15px;
+    }
+
+    .floating-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .floating-contact:hover {
+        transform: scale(1.02) translateY(-2px);
+    }
+
     .nav-menu {
         position: fixed;
         left: -100%;
