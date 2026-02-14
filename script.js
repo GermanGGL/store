@@ -1,96 +1,22 @@
 // WhatsApp configuration - Change this number to your WhatsApp number
 const WHATSAPP_NUMBER = '+5212217655080'; // Replace with your actual WhatsApp number
 
-// Sample product data
-const products = [
-    {
-        id: 1,
-        name: "Cojín de Lujo Terciopelo",
-        price: 45.99,
-        description: "Tela suave de terciopelo con elegantes acentos dorados",
-        category: "decorative",
-        image: "./images/cojin1.jpeg"
-    },
-    {
-        id: 2,
-        name: "Exterior Resistente al Clima",
-        price: 32.99,
-        description: "Cojín duradero perfecto para patios y jardines",
-        category: "outdoor",
-        image: "./images/cojin2.jpeg"
-    },
-    {
-        id: 3,
-        name: "Cojín Bohemio Acogedor",
-        price: 28.99,
-        description: "Cojín estilo bohemio con borlas y patrones",
-        category: "throw",
-        image: "./images/cojin3.jpeg"
-    }/* ,
-    {
-        id: 4,
-        name: "Modern Geometric Print",
-        price: 38.99,
-        description: "Contemporary design with geometric patterns",
-        category: "decorative",
-        image: "https://picsum.photos/seed/geometric-cushion/300/250.jpg"
-    },
-    {
-        id: 5,
-        name: "Patio Lounge Cushion",
-        price: 52.99,
-        description: "Extra thick cushion for outdoor seating",
-        category: "outdoor",
-        image: "https://picsum.photos/seed/lounge-cushion/300/250.jpg"
-    },
-    {
-        id: 6,
-        name: "Soft Fleece Throw",
-        price: 24.99,
-        description: "Ultra-soft fleece material for ultimate comfort",
-        category: "throw",
-        image: "https://picsum.photos/seed/fleece-cushion/300/250.jpg"
-    },
-    {
-        id: 7,
-        name: "Silk Elegance Cushion",
-        price: 65.99,
-        description: "Premium silk fabric with embroidery",
-        category: "decorative",
-        image: "https://picsum.photos/seed/silk-cushion/300/250.jpg"
-    },
-    {
-        id: 8,
-        name: "Garden Bench Cushion",
-        price: 42.99,
-        description: "Water-resistant cushion for garden benches",
-        category: "outdoor",
-        image: "https://picsum.photos/seed/bench-cushion/300/250.jpg"
-    },
-    {
-        id: 9,
-        name: "Nordic Style Throw",
-        price: 31.99,
-        description: "Minimalist Scandinavian design",
-        category: "throw",
-        image: "https://picsum.photos/seed/nordic-cushion/300/250.jpg"
-    } */
-];
-
-// Shopping cart
-let cart = [];
+let products = productsData;
 
 // DOM Elements
 const productsGrid = document.getElementById('products-grid');
 const cartCount = document.getElementById('cart-count');
 const cartItems = document.getElementById('cart-items');
 const cartTotal = document.getElementById('cart-total');
-const clearCartBtn = document.getElementById('clear-cart');
-const checkoutWhatsappBtn = document.getElementById('checkout-whatsapp');
 const filterButtons = document.querySelectorAll('.filter-btn');
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const whatsappBtn = document.getElementById('whatsapp-btn');
+const clearCartBtn = document.getElementById('clear-cart');
+const checkoutWhatsappBtn = document.getElementById('checkout-whatsapp');
+
+// Shopping cart
+let cart = [];
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
@@ -145,6 +71,14 @@ function setupEventListeners() {
     // WhatsApp button click handler
     if (whatsappBtn) {
         whatsappBtn.addEventListener('click', () => {
+            openWhatsApp();
+        });
+    }
+
+    // Floating contact button
+    const floatingContact = document.querySelector('.floating-contact');
+    if (floatingContact) {
+        floatingContact.addEventListener('click', () => {
             openWhatsApp();
         });
     }
