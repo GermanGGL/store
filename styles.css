@@ -641,6 +641,47 @@ body {
     100% { transform: translateY(0px); }
 }
 
+/* Estilos específicos para que el texto quepa en móviles */
+@media (max-width: 480px) {
+    .floating-contact {
+        /* Reducimos el espacio interno para ganar área de texto */
+        padding: 8px 15px; 
+        gap: 8px;
+        
+        /* Limitamos el ancho para que no toque los bordes del celular */
+        max-width: 90%; 
+        bottom: 15px;
+        right: 5%; /* Lo centramos un poco más respecto al borde */
+        
+        /* Ajustamos el radio para que no sea un círculo perfecto, sino un óvalo */
+        border-radius: 30px; 
+    }
+
+    .floating-contact span {
+        /* Reducimos el tamaño de la letra para que quepa en una línea */
+        font-size: 13px; 
+        letter-spacing: 0.2px;
+        
+        /* Si el texto sigue siendo muy largo, permitimos que use dos líneas 
+           solo si es estrictamente necesario, o lo mantenemos en una */
+        white-space: normal; 
+        text-align: left;
+        line-height: 1.2;
+    }
+
+    .floating-icon {
+        /* Hacemos el icono un poco más pequeño para dar prioridad al texto */
+        width: 30px;
+        min-width: 30px; /* Evita que el flexbox lo aplaste */
+        height: 30px;
+    }
+
+    .floating-icon img {
+        width: 18px;
+        height: 18px;
+    }
+}
+
 /* 
 @keyframes float {
     0%, 100% {
