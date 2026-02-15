@@ -79,7 +79,7 @@ const productsData = [
         "description": "Tela Miteza con Moño. Personalizamos tu diseño. Variedad en Telas y Colores",
         "pack": "Pack de 2 unidades",
         "category": "cojines-decorativos",
-        "images": ["./images/products/cojin-decorativo-9.jpeg", "./images/products/cojin-decorativo-9-1.jpeg", "./images/products/cojin-decorativo-9-2.jpeg"]
+        "images": ["./images/products/cojin-decorativo-9.jpeg", "./images/products/cojin-decorativo-9-1.jpeg", "./images/products/cojin-decorativo-9-2.jpeg", "./images/products/cojin-decorativo-9-3.jpeg"]
     },
     {
         "id": 10,
