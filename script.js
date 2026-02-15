@@ -36,11 +36,31 @@ function renderProducts(productsToRender) {
     productsToRender.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
+        
+        const images = product.images || [product.image];
+        const imageSlides = images.map((img, index) => 
+            `<img src="${img}" alt="${product.name}" class="product-image-slide${index === 0 ? ' active' : ''}" data-index="${index}">`
+        ).join('');
+        
+        const indicators = images.length > 1 ? images.map((_, index) => 
+            `<span class="carousel-indicator" data-index="${index}"></span>`
+        ).join('') : '';
+        
         productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <div class="product-image-carousel" data-product-id="${product.id}">
+                <div class="carousel-slides">${imageSlides}</div>
+                ${images.length > 1 ? `
+                    <button class="carousel-nav carousel-prev">❮</button>
+                    <button class="carousel-nav carousel-next">❯</button>
+                    <div class="carousel-indicators">${indicators}</div>
+                ` : ''}
+            </div>
             <div class="product-info">
                 <h3>${product.name}</h3>
-                <div class="product-price">$${product.price.toFixed(2)}</div>
+                <div class="product-price-row">
+                    <div class="product-price">${product.price != null ? '$' + product.price.toFixed(2) : 'Consultar precio'}</div>
+                    ${product.pack ? `<div class="product-pack">${product.pack}</div>` : ''}
+                </div>
                 <p class="product-description">${product.description}</p>
                 <button class="add-to-cart" onclick="addToCart(${product.id})">
                     Agregar al Carrito
@@ -48,7 +68,108 @@ function renderProducts(productsToRender) {
             </div>
         `;
         productsGrid.appendChild(productCard);
+        
+        // Initialize carousel for this product
+        if (images.length > 1) {
+            initCarousel(productCard, images.length);
+        }
     });
+}
+
+// Initialize carousel with auto-play and swipe
+function initCarousel(card, totalSlides) {
+    const carousel = card.querySelector('.product-image-carousel');
+    const slides = carousel.querySelectorAll('.product-image-slide');
+    const indicators = carousel.querySelectorAll('.carousel-indicator');
+    const prevBtn = carousel.querySelector('.carousel-prev');
+    const nextBtn = carousel.querySelector('.carousel-next');
+    
+    let currentIndex = 0;
+    let autoPlayInterval;
+    
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        indicators.forEach(ind => ind.classList.remove('active'));
+        
+        slides[index].classList.add('active');
+        if (indicators[index]) indicators[index].classList.add('active');
+        currentIndex = index;
+    }
+    
+    function nextSlide() {
+        const next = (currentIndex + 1) % totalSlides;
+        showSlide(next);
+    }
+    
+    function prevSlide() {
+        const prev = (currentIndex - 1 + totalSlides) % totalSlides;
+        showSlide(prev);
+    }
+    
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 5000);
+    }
+    
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+    
+    // Navigation buttons
+    if (nextBtn) nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        nextSlide();
+        stopAutoPlay();
+        startAutoPlay();
+    });
+    
+    if (prevBtn) prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        prevSlide();
+        stopAutoPlay();
+        startAutoPlay();
+    });
+    
+    // Indicator clicks
+    indicators.forEach((ind, index) => {
+        ind.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showSlide(index);
+            stopAutoPlay();
+            startAutoPlay();
+        });
+    });
+    
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoPlay();
+    }, { passive: true });
+    
+    carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoPlay();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
+    }
+    
+    // Initialize
+    showSlide(0);
+    startAutoPlay();
 }
 
 // Setup event listeners
@@ -79,12 +200,12 @@ function setupEventListeners() {
     }
 
     // Floating contact button
-    const floatingContact = document.querySelector('.floating-contact');
-    if (floatingContact) {
+    const floatingContacts = document.querySelectorAll('.floating-contact');
+    floatingContacts.forEach(floatingContact => {
         floatingContact.addEventListener('click', () => {
             openWhatsApp();
         });
-    }
+    });
 
     // Clear cart button
     if (clearCartBtn) {
@@ -140,6 +261,11 @@ function filterProducts(category) {
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (product) {
+        if (product.price == null) {
+            showNotification('Precio no disponible');
+            return;
+        }
+        
         const existingItem = cart.find(item => item.id === productId);
         
         if (existingItem) {
@@ -187,18 +313,18 @@ function renderCart() {
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
             <div class="cart-item-info">
-                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <img src="${item.images ? item.images[0] : item.image}" alt="${item.name}" class="cart-item-image">
                 <div class="cart-item-details">
                     <h4>${item.name}</h4>
                     <p class="cart-item-description">${item.description}</p>
-                    <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                    <p class="cart-item-price">${item.price != null ? '$' + item.price.toFixed(2) : 'Consultar'}</p>
                 </div>
             </div>
             <div class="cart-item-quantity">
                 <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
                 <span class="quantity">${item.quantity}</span>
                 <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                <button class="remove-item" onclick="removeFromCart(${item.id})">🗑️</button>
+                <button class="remove-item" onclick="removeFromCart(${item.id})"><img src="images/basura.ico" alt="Eliminar" width="24" height="24"></button>
             </div>
         `;
         cartItems.appendChild(cartItem);
