@@ -39,7 +39,7 @@ function renderProducts(productsToRender) {
         
         const images = product.images || [product.image];
         const imageSlides = images.map((img, index) => 
-            `<img src="${img}" alt="${product.name}" class="product-image-slide${index === 0 ? ' active' : ''}" data-index="${index}">`
+            `<img src="${img}" alt="${product.name}" class="product-image-slide${index === 0 ? ' active' : ''}" data-index="${index}" loading="${index === 0 ? 'eager' : 'lazy'}">`
         ).join('');
         
         const indicators = images.length > 1 ? images.map((_, index) => 
